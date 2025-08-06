@@ -1,26 +1,27 @@
 # ✅ 1. Folder Structure (Initial Setup)
 
-│   ├── config/              # DB, environment configs
-│   ├── controllers/         # Route handlers
-│   ├── middlewares/         # Auth, error, validation etc.
-│   ├── models/              # Mongoose/Sequelize models
-│   ├── routes/              # All Express routes
-│   ├── services/            # Business logic
-│   ├── utils/               # Helper functions
-│   ├── validators/          # Joi / zod validators
+│ ├── config/ # DB, environment configs
+│ ├── controllers/ # Route handlers
+│ ├── middlewares/ # Auth, error, validation etc.
+│ ├── models/ # Mongoose/Sequelize models
+│ ├── routes/ # All Express routes
+│ ├── services/ # Business logic
+│ ├── utils/ # Helper functions
+│ ├── validators/ # Joi / zod validators
 
-├── tests/                   # Unit/integration tests
+├── tests/ # Unit/integration tests
 ├── .github/
-│   └── workflows/           # GitHub Actions CI/CD
-├── Dockerfile               # Docker container
-├── docker-compose.yml       # Local container orchestration
-├── kubernetes/              # Kubernetes manifests
-├── .env                     # Environment variables
-├── .eslintrc.js             # Linting rules
-├── .prettierrc              # Formatting rules
-├── tsconfig.json            # TypeScript config (if TS)
+│ └── workflows/ # GitHub Actions CI/CD
+├── Dockerfile # Docker container
+├── docker-compose.yml # Local container orchestration
+├── kubernetes/ # Kubernetes manifests
+├── .env # Environment variables
+├── .eslintrc.js # Linting rules
+├── .prettierrc # Formatting rules
+├── tsconfig.json # TypeScript config (if TS)
 
 # ✅ 2. Dependencies List (Full Stack)
+
     1:  Core Dependencies
         npm install express cors dotenv helmet compression morgan
     2:  Dev Dependencies
@@ -36,6 +37,7 @@
         npx husky-init && npm install lint-staged -D
 
 # ✅ 3. Code Best Practices to Follow
+
     ✅ Modularized code with service-controller separation
     ✅ Use async/await, never block event loop
     ✅ Apply Joi/Zod validation for request bodies
@@ -50,6 +52,7 @@
     ✅ Setup CI to block bad PRs or broken builds
 
 # ✅ 4. Auth and Authorization
+
     Use JWT for access & refresh tokens
     Store tokens in HTTP-only cookies or headers
     Create middlewares:
@@ -57,6 +60,7 @@
     authorizeRole("admin")
 
 # ✅ 5. Scripts to Add in package.json
+
     "scripts": {
         "dev": "nodemon src/app.ts",
         "build": "tsc",
@@ -67,10 +71,8 @@
     }
 
 ✅ 6. Setup Husky + Lint Staged
-    npx husky add .husky/pre-commit "npx lint-staged"
-    // package.json
-    "lint-staged": {
-        "*.ts": ["eslint --fix", "prettier --write"]
-    }
-
-    
+npx husky add .husky/pre-commit "npx lint-staged"
+// package.json
+"lint-staged": {
+"\*.ts": ["eslint --fix", "prettier --write"]
+}
