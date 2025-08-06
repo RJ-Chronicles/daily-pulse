@@ -1,9 +1,8 @@
+import cors from 'cors';
 import { Application } from 'express';
-import helmet from 'helmet';
-
 import mongoSanitize from 'express-mongo-sanitize';
 import rateLimit from 'express-rate-limit';
-import cors from 'cors';
+import helmet from 'helmet';
 
 const applyMiddlewares = (app: Application) => {
   app.use(helmet());
