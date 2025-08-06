@@ -1,5 +1,5 @@
-import express from "express";
-import env from "dotenv";
+import express from 'express';
+import env from 'dotenv';
 env.config();
 
 const app = express();
@@ -13,4 +13,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-console.log("Hello from Daily Pulse!");
+console.log('Hello from Daily Pulse!');
