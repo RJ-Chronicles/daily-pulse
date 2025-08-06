@@ -76,3 +76,267 @@ npx husky add .husky/pre-commit "npx lint-staged"
 "lint-staged": {
 "\*.ts": ["eslint --fix", "prettier --write"]
 }
+
+-------------------------------------------------------------------------------------------------------
+
+**step-by-step guide** to create a Node.js + Express + TypeScript starter project with proper **ESLint**, **Prettier**, **Husky pre-commit hooks**, and **security-related middlewares**.
+
+---
+
+## ✅ Node + Express + TypeScript Starter Project Setup
+
+### 🔹 1. Initialize the Project
+
+```bash
+mkdir daily-pulse
+cd daily-pulse
+npm init -y
+```
+
+---
+
+### 🔹 2. Install Dependencies
+
+#### 📦 Runtime Dependencies
+
+```bash
+npm install express dotenv helmet cors xss-clean express-rate-limit express-mongo-sanitize compression joi jsonwebtoken morgan bcryptjs openai rate-limit
+```
+
+#### ⚙️ Dev Dependencies
+
+```bash
+npm install -D typescript @types/node @types/express @types/cors
+```
+
+---
+
+### 🔹 3. ESLint + Prettier + TypeScript Config
+
+#### Install Linting Tools
+
+```bash
+npm install -D eslint prettier eslint-config-prettier eslint-plugin-prettier \
+@typescript-eslint/parser @typescript-eslint/eslint-plugin \
+eslint-plugin-import eslint-plugin-node eslint-plugin-security \
+@eslint/js typescript-eslint jiti
+```
+
+#### Add ESLint Flat Config Support (Modern)
+
+Rename the config file to:
+
+```bash
+eslint.config.mjs
+```
+
+#### ✅ `eslint.config.mjs`
+
+```js
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import eslintPluginImport from 'eslint-plugin-import';
+
+export default [
+  {
+    ignores: ['node_modules/**', 'dist/**'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ['**/*.js', '**/*.ts'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parser: tseslint.parser,
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        __dirname: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+      },
+    },
+    plugins: {
+      import: eslintPluginImport,
+    },
+    rules: {
+      'no-console': 'off',
+      'no-unused-vars': 'warn',
+      'import/order': [
+        'warn',
+        {
+          groups: ['builtin', 'external', 'internal'],
+          'newlines-between': 'always',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+        },
+      ],
+      quotes: ['error', 'single'],
+      semi: ['error', 'always'],
+    },
+  },
+];
+```
+
+---
+
+### 🔹 4. Setup Prettier
+
+Create `.prettierrc`:
+
+```json
+{
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all"
+}
+```
+
+Optional `.prettierignore`:
+
+```
+node_modules
+dist
+```
+
+---
+
+### 🔹 5. TypeScript Config
+
+Create `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
+```
+
+---
+
+### 🔹 6. Husky + Lint-Staged Setup
+
+```bash
+npm install -D husky lint-staged
+npx husky install
+npm pkg set scripts.prepare="husky install"
+```
+
+#### Add a Pre-commit Hook:
+
+```bash
+npx husky add .husky/pre-commit "npx lint-staged"
+```
+
+#### In `package.json`:
+
+```json
+"lint-staged": {
+  "*.ts": [
+    "eslint --fix",
+    "prettier --write"
+  ]
+}
+```
+
+---
+
+### 🔹 7. Add Source Files
+
+#### `src/app.ts`
+
+```ts
+import express from 'express';
+import dotenv from 'dotenv';
+import applyMiddlewares from './middlewares';
+
+dotenv.config();
+
+const app = express();
+applyMiddlewares(app);
+
+app.get('/', (_req, res) => {
+  res.send('Hello World');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+```
+
+#### `src/middlewares.ts`
+
+```ts
+import { Application } from 'express';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
+import rateLimit from 'express-rate-limit';
+import cors from 'cors';
+
+const applyMiddlewares = (app: Application) => {
+  app.use(helmet());
+  app.use(mongoSanitize());
+  app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
+  app.use(cors());
+  app.use(express.json());
+};
+
+export default applyMiddlewares;
+```
+
+---
+
+### 🔹 8. Add Scripts to `package.json`
+
+```json
+"scripts": {
+  "start": "nodemon dist/app.js",
+  "build": "tsc",
+  "prepare": "husky install",
+  "dev": "nodemon src/app.ts",
+  "test": "jest",
+  "lint": "eslint . --ext .ts,.tsx",
+  "lint:fix": "eslint . --ext .ts,.tsx --fix",
+  "format": "prettier --write ."
+}
+```
+
+---
+
+### 🔹 9. Run and Test
+
+* `npm run dev` — Start development server
+* `npm run build` — Compile TypeScript
+* `npm run lint` — Run linter
+* `npm run lint:fix` — Fix lint errors
+* `npm run format` — Format using Prettier
+
+---
+
+### ✅ You're All Set!
+
+You now have a robust starter with:
+
+* TypeScript
+* ESLint (Flat Config)
+* Prettier
+* Husky + lint-staged
+* Express + Middleware security (helmet, rate limit, sanitize, etc.)
+* Pre-commit hooks enforcing code quality
+
+Let me know if you'd like me to zip up the starter and send it to you as well.
+
