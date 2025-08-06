@@ -13,4 +13,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-console.log("Hello world");
+console.log("Hello from Daily Pulse!");
