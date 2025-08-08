@@ -1,12 +1,13 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import { CustomError } from '../errors/custom-error';
 
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 const ErrorHandler = (
   err: Error,
   req: Request,
   res: Response,
-  //next: NextFunction Need to fix this
+  next: NextFunction,
 ) => {
   if (err instanceof CustomError) {
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
