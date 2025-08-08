@@ -1,0 +1,19 @@
+import { NextFunction, Request, Response } from 'express';
+
+import { CustomError } from '../errors/custom-error';
+
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+const ErrorHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+  }
+
+  return res.status(400).send({ errors: [{ message: 'Bad Request' }] });
+};
+
+export default ErrorHandler;
