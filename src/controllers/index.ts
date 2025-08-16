@@ -1,1 +1,1 @@
-export { default as healthController } from './health.controller';
+export * as healthCheck from './health.controller';

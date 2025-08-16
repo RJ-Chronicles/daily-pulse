@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
+import { POST } from '../controllers/feed.controller';
+
 const router = Router();
 
-router.post('/', (req, res) => {
-  res.status(200).send({ message: 'Feed route is working!' });
-});
+router.post('/feed', POST);
 
 export default router;
