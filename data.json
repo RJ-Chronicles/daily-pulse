@@ -1,4 +1,18 @@
 {
+  "11325": {
+    "description": "I wake up at 10 a.m., skip breakfast, work on my laptop until midnight, and often feel stressed and lonely.",
+    "result": {
+      "health": "Skipping breakfast may lead to low energy levels and affect overall physical health. Working long hours without breaks can also contribute to fatigue.",
+      "emotions": "Feeling stressed and lonely indicates a need for emotional support and self-care. It's important to address these feelings to improve mental well-being.",
+      "relationships": "The routine suggests limited social interaction, which may contribute to feelings of loneliness. Building connections with others could enhance emotional support.",
+      "productivity": "Working from 10 a.m. to midnight may lead to burnout and disrupt work-life balance. It's essential to establish boundaries to maintain productivity without sacrificing personal time.",
+      "recommendations": [
+        "Consider incorporating a healthy breakfast into your morning routine to boost energy levels.",
+        "Schedule regular breaks throughout your workday to reduce stress and improve focus.",
+        "Make time for social interactions, whether through calls, video chats, or in-person meetings, to combat feelings of loneliness."
+      ]
+    }
+  },
   "31070": {
     "description": "I wake up at 10 a.m., skip breakfast, work on my laptop until midnight, and often feel stressed and lonely.",
     "result": {

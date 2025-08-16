@@ -17,3 +17,5 @@ export interface AdviserResponse {
 export interface FileSaverType {
   id: AdviserResponse;
 }
+
+export type SchemasListType = 'postFeed';
