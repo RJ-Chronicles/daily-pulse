@@ -3,7 +3,7 @@ import express from 'express';
 
 import applyMiddlewares from './middlewares/default';
 import ErrorHandler from './middlewares/error-handler';
-import { health_router } from './routes';
+import { feed_router, health_router } from './routes';
 
 env.config();
 
@@ -13,6 +13,7 @@ applyMiddlewares(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', health_router);
+app.use('/api', feed_router);
 
 const PORT = process.env.PORT || 3000;
 
